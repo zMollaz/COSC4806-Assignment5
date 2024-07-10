@@ -1,11 +1,11 @@
 <?php 
-require_once 'app/views/templates/headerPublic.php';
-
 session_start();
 $error = '';
 if (isset($_SESSION["loginError"]) && $_SESSION["loginError"] == true) {
 		$error = $_SESSION["loginError"];
 }
+
+require_once 'app/views/templates/headerPublic.php';
 ?>
 <main role="main" class="container">
 		<div class="page-header d-flex justify-content-between align-items-center" id="banner">
