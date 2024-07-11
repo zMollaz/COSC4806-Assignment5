@@ -31,7 +31,7 @@ if (!isset($_SESSION['auth'])) {
                     <?php
                         if (strtolower($_SESSION['username']) == 'admin') {  
                             echo '<li class="nav-item">
-                                <a class="nav-link" href="reports.php">Reports</a>
+                                <a class="nav-link" href="/reports">Reports</a>
                             </li>';
                         }
                     ?>
