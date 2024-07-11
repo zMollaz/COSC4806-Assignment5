@@ -6,8 +6,6 @@ if (!isset($_SESSION['auth'])) {
     exit();
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,6 +43,18 @@ if (!isset($_SESSION['auth'])) {
             </div>
         </div>
     </nav>
+    <div class="container mt-3">
+        <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+                <?php if ($_SESSION['controller'] == 'home'): ?>
+                    <li class="breadcrumb-item active" aria-current="page">Home /</li>
+                <?php else: ?>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><?php echo ucwords($_SESSION["controller"]); ?></li>
+                <?php endif; ?>
+            </ol>
+        </nav>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
