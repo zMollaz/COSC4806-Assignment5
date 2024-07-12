@@ -43,7 +43,7 @@ class User {
         if (password_verify($password, $rows['password'])) {
             // Successful attempt
             $_SESSION['auth'] = 1;
-            $_SESSION['username'] = ucwords($username);
+            $_SESSION['username'] = $username;
             $_SESSION['user_id'] = $rows['id'];
             unset($_SESSION['loginError']);
             $attempt = 'good';
@@ -103,11 +103,14 @@ class User {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $statement = $db->prepare('INSERT INTO users (username, password) VALUES (?, ?)');
         if ($statement->execute([$username, $hashed_password])) {
+            // Set session variables
             $_SESSION["auth"] = 1;
             $_SESSION["username"] = $username;
+            $userId = $db->lastInsertId();
+            $_SESSION["user_id"] = $userId;
+
             header("Location: /home");
             die;
-            
         } else {
             $statement->closeCursor();
             $_SESSION["createError"] = 'Registration failed, please try again';

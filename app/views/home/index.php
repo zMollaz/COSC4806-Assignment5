@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h1 class="card-title">Welcome <?php echo $_SESSION["username"]; ?></h1>
+                        <h1 class="card-title">Welcome <?php echo ucwords($_SESSION["username"]); ?></h1>
                         <p class="card-text">You are now logged in.</p>
                     </div>
                     <div>

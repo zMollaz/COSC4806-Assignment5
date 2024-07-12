@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['username']) || $_SESSION['username'] != 'Admin') {
+if (!isset($_SESSION['username']) || $_SESSION['username'] != 'admin') {
     header("Location: /login");
     die;
 }
@@ -8,12 +8,25 @@ if (!isset($_SESSION['username']) || $_SESSION['username'] != 'Admin') {
 class Reports extends Controller {
 
     public function index() {	
-        $logModel = $this->model('Log');
-        $reminderModel = $this->model('Reminder');
-        $allReminders = $reminderModel->get_all_reminders();
-        $userWithMostReminders = $reminderModel->get_user_with_most_reminders();
-        $userLogins = $logModel->get_total_logins_by_username();
-        $this->view('report/index', ['userLogins' => $userLogins, 'userWithMostReminders' => $userWithMostReminders, 'allReminders' => $allReminders]);
+        $this->view('reports/index');
     }
+
+        public function all_reminders() {
+            $reminderModel = $this->model('Reminder');
+            $allReminders = $reminderModel->get_all_reminders();
+            $this->view('reports/all_reminders', ['allReminders' => $allReminders]);
+        }
+
+        public function user_with_most_reminders() {
+            $reminderModel = $this->model('Reminder');
+            $userWithMostReminders = $reminderModel->get_user_with_most_reminders();
+            $this->view('reports/user_with_most_reminders', ['userWithMostReminders' => $userWithMostReminders]);
+        }
+
+        public function user_logins() {
+            $logModel = $this->model('Log');
+            $userLogins = $logModel->get_total_logins_by_username();
+            $this->view('reports/user_logins', ['userLogins' => $userLogins]);
+        }
 }
 ?>
