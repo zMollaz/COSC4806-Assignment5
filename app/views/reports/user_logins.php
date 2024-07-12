@@ -27,16 +27,32 @@ require_once 'app/views/templates/header.php';
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    var ctx = document.getElementById('loginsChart').getContext('2d');
-    var loginsChart = new Chart(ctx, {
+    const ctx = document.getElementById('loginsChart').getContext('2d');
+    const loginsChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: <?php echo json_encode(array_column($userLogins, 'username')); ?>,
+            labels: <?php echo json_encode(array_column($userLogins, 'count')); ?>,
             datasets: [{
                 label: 'Number of logins',
                 data: <?php echo json_encode(array_column($userLogins, 'count')); ?>,
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 205, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                  'rgb(255, 99, 132)',
+                  'rgb(255, 159, 64)',
+                  'rgb(255, 205, 86)',
+                  'rgb(75, 192, 192)',
+                  'rgb(54, 162, 235)',
+                  'rgb(153, 102, 255)',
+                  'rgb(201, 203, 207)'
+                ],
                 borderWidth: 1
             }]
         },
@@ -47,6 +63,6 @@ require_once 'app/views/templates/header.php';
                 }
             }
         }
-    });
+    })
 </script>
 <?php require_once 'app/views/templates/footer.php'; ?>

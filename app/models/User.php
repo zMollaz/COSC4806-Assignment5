@@ -89,6 +89,7 @@ class User {
             header("Location: /create");
             die;
         }
+
         // Database connection
         $db = db_connect();
         // Check if username exists
@@ -99,6 +100,7 @@ class User {
             header("Location: /create");
             die;
         }
+
         // Hash the password and add user to db
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $statement = $db->prepare('INSERT INTO users (username, password) VALUES (?, ?)');
@@ -109,8 +111,12 @@ class User {
             $userId = $db->lastInsertId();
             $_SESSION["user_id"] = $userId;
 
+            // Log the successful login attempt
+            $logModel = new Log();
+            $logModel->logAttempt($username, 'good');
             header("Location: /home");
             die;
+            
         } else {
             $statement->closeCursor();
             $_SESSION["createError"] = 'Registration failed, please try again';
