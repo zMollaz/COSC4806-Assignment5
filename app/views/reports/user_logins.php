@@ -31,7 +31,7 @@ require_once 'app/views/templates/header.php';
     const loginsChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: <?php echo json_encode(array_column($userLogins, 'count')); ?>,
+            labels: <?php echo json_encode(array_column($userLogins, 'username')); ?>,
             datasets: [{
                 label: 'Number of logins',
                 data: <?php echo json_encode(array_column($userLogins, 'count')); ?>,
@@ -63,6 +63,6 @@ require_once 'app/views/templates/header.php';
                 }
             }
         }
-    })
+    });
 </script>
 <?php require_once 'app/views/templates/footer.php'; ?>
