@@ -23,7 +23,8 @@
                 <div class="col-lg-4 col-md-12 text-lg-end text-center">
                     <ul class="list-unstyled d-flex justify-content-lg-end justify-content-center mb-0">
                         <li class="me-3">
-                            <a href="/" class="text-dark">Home</a>
+                            <?php echo isset($_SESSION["username"]) ? ' <a href="/" class="text-dark">Home</a>' : ''; ?>
+
                         </li>
                     </ul>
                 </div>
