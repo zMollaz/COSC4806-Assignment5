@@ -32,5 +32,21 @@ class Log {
         $statement = $db->prepare("INSERT INTO logs (username, attempt, time) VALUES (?, ?, ?)");
         $statement->execute([$username, $attempt, $time]);
     }
+
+    public function get_total_logins_by_username() {
+        $db = db_connect();
+        $statement = $db->prepare("
+            SELECT users.username, COUNT(logs.id) as count 
+            FROM logs 
+            JOIN users ON logs.username = users.username
+            GROUP BY users.username
+        ");
+        $statement->execute();
+        $logins = [];
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            $logins[] = $row;
+        }
+        return $logins;
+    }
 }
 ?>

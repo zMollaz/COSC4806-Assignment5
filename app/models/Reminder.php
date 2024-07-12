@@ -45,5 +45,34 @@ class Reminder {
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
         $statement->execute();
     }
+
+  public function get_all_reminders() {
+        $db = db_connect();
+        $statement = $db->prepare("
+            SELECT reminders.*, users.username 
+            FROM reminders 
+            JOIN users ON reminders.user_id = users.id
+        ");
+        $statement->execute();
+        $reminders = [];
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            $reminders[] = $row;
+        }
+        return $reminders;
+    }
+
+    public function get_user_with_most_reminders() {
+        $db = db_connect();
+        $statement = $db->prepare("
+            SELECT users.username, COUNT(reminders.id) as count 
+            FROM reminders 
+            JOIN users ON reminders.user_id = users.id 
+            GROUP BY users.username 
+            ORDER BY count DESC 
+            LIMIT 1
+        ");
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
 }
 ?>
